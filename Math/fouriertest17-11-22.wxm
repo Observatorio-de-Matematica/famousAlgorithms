@@ -1,0 +1,179 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: comment start ]
+Experiment with Fourier Transform
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: input   start ] */
+load(fft);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ e : cos ( 6*%pi*t )$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ ( ns : 8, fs : 8 )$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+dt : first (nyquist (ns,fs));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+sample(expr, var, ns, dvar);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+flist : sample (e,t,ns,dt);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+xy: [[10, .6], [20, .9], [30, 1.1], [40, 1.3], [50, 1.4]]$
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: comment start ]
+see why sin x / x  is special
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bnc(n,l) := (sin (n*l)) / (n*l);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bunc1(l) := bnc(1,l);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bunc2(l) := bnc(2,l);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bunc3(l) := bnc(3,l);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bunc4(l) := bnc(4,l);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bunc5(l) := bnc(5,l);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+bunc6(l) := bnc(6,l);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+func(n,l) := 4 / %pi * n* (sin (2*%pi*n*l));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+func1(l) := func(1,l); 
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+func2(l) := func(2,l); 
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+func3(l) := func(3,l); 
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+func4(l) := func(4,l); 
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+func5(l) := func(5,l); 
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+func6(l) := func(6,l); 
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: comment start ]
+,func4 (l),func5 (l),func6 (l)
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: input   start ] */
+funcdx1(l) := func1(l) + func2(l);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+funcdxx1(l) := func1(l) + func2(l) + func3(l) + func4(l)+ func5(l)+ func6(l);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+funcdxxx1(l) := func1(l) + func2(l) - func3(l) / (func4(l) + func5(l));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+funcdxxxx1(l) := func1(l) / func2(l) / func3(l) / func4(l);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+plot2d([funcdxx1(l),func1 (l),func2 (l),func3 (l),bunc1(l)], [l,0,50],
+        [style, lines], [color, red, blue, green, orange, violet, brown, black],
+        [legend, "experiment", "theory"],
+        [xlabel, "pendulum's length (cm)"],
+        [ylabel, "period (s)"])$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+zeb(x) := x + 1;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+zob(x) := integrate (zeb(x), x);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+FourierZob(x) := zob(x)^2;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+plot2d([zob(l),FourierZob(l),func2 (l),func3 (l),bunc1(l)], [l,0,50],
+        [style, lines], [color, red, blue, green, orange, violet, brown, black],
+        [legend, "integral", "integral^2"],
+        [xlabel, "pendulum's length (cm)"],
+        [ylabel, "period (s)"])$
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
